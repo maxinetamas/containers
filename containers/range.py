@@ -36,10 +36,10 @@ def range(a, b=None, c=None):
         # if two arguments are given, start at a and count up to b
         start = a
         stop = b
-    
+
     # set the step size (defaulting to 1)
     step = c or 1
-    
+
     # generate the values in the range
     i = start
     if step > 0:
