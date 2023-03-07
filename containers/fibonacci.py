@@ -67,7 +67,7 @@ class Fib:
 
     def __iter__(self):
         return FibIter(self.n, self.f0, self.f1)
-    
+
     def __repr__(self):
         if self.n is None:
             return "Fib()"
