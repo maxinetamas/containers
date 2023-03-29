@@ -64,6 +64,19 @@ class BST(BinaryTree):
         Convert the contents of both trees into a sorted list,
         then compare those sorted lists for equality.
         '''
+        if not isinstance(t2, BST):
+            return False
+
+        # Check if the two trees have the same number of nodes
+        if len(self) != len(t2):
+            return False
+
+        # Check if each node in one tree has a corresponding node in the other tree with the same value
+        for x, y in zip(self, t2):
+            if x != y:
+                return False
+
+        return True
 
     def is_bst_satisfied(self):
         '''
