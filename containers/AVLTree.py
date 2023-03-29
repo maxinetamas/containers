@@ -90,7 +90,7 @@ class AVLTree(BST):
         however, so you will have to adapt their code.
         '''
         if node is None or node.left is None:
-             return node
+            return node
         new_node = Node(node.left.value)
         new_node.left = node.left.left
         new_right = Node(node.value)
@@ -133,7 +133,7 @@ class AVLTree(BST):
         if value < node.value:
             node.left = AVLTree._insert(node.left, value)
         else:
-            node.right = AVLTree._insert(node.right,value)
+            node.right = AVLTree._insert(node.right, value)
         balance = AVLTree._balance_factor(node)
         if balance > 1:
             if value < node.left.value:
