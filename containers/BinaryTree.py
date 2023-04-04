@@ -52,7 +52,6 @@ class BinaryTree():
             self.root = Node(root)
         else:
             self.root = None
-
     def __str__(self):
         '''
         We can visualize a tree by visualizing its root node.
