@@ -170,17 +170,17 @@ class Heap(BinaryTree):
             self.root = None
         else:
             print("current heap being passed: ", self.root)
-            self.root.value = Heap._remove_bottom_right(self.root, remove_path))
+            self.root.value = Heap._remove_bottom_right(self.root, remove_path)
             print("before trickle: ", self.root)
             Heap._trickle(self.root)
             print("after trickle: ", self)
 
     @staticmethod
-    def _remove_bottom_right(node, bin_str):
-        if len(bin_str) == 1:
-            if bin_str[0] == '1':
+    def _remove_bottom_right(node, remove_path):
+        if len(remove_path) == 1:
+            if remove_path[0] == '1':
                 value = node.right.value
-                node.right = None            
+                node.right = None
                 return value
             else:
                 value = node.left.value
