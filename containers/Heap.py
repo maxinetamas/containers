@@ -69,7 +69,7 @@ class Heap(BinaryTree):
         if node.left:
             ret &= node.value <= node.left.value
             ret &= Heap._is_heap_satisfied(node.left)
-        if node.right: 
+        if node.right:
             ret &= node.value <= node.right.value
             ret &= Heap._is_heap_satisfied(node.right)
         return ret
@@ -107,19 +107,19 @@ class Heap(BinaryTree):
     @staticmethod
     def _insert(node, value, bin_str):
         if bin_str[0] == '0':
-             if len(bin_str) == 1:
-                 node.left = Node(value)
-             else:
-                 Heap._insert(node.left, value, bin_str[1:])
-             if node.value > node.left.value:
+            if len(bin_str) == 1:
+                node.left = Node(value)
+            else:
+                Heap._insert(node.left, value, bin_str[1:])
+            if node.value > node.left.value:
                 node.value, node.left.value = node.left.value, node.value
         if bin_str[0] == '1':
-             if len(bin_str) == 1:
-                 node.right = Node(value)
-             else:
-                 Heap._insert(node.right, value, bin_str[1:])
-             if node.value > node.right.value:
-                 node.value, node.right.value = node.right.value, node.value
+            if len(bin_str) == 1:
+                node.right = Node(value)
+            else:
+                Heap._insert(node.right, value, bin_str[1:])
+            if node.value > node.right.value:
+                node.value, node.right.value = node.right.value, node.value
 
     def insert_list(self, xs):
         '''
@@ -164,7 +164,7 @@ class Heap(BinaryTree):
         print("number of nodes: ", self.num_nodes)
         print("bin_str: ", bin(self.num_nodes)[3:])
         remove_path = list('{0:b}'.format(self.num_nodes))
-        self.num_nodes -=1
+        self.num_nodes -= 1
         remove_path.pop(0)
         if len(remove_path) < 1:
             self.root = None
