@@ -24,10 +24,8 @@ class Heap(BinaryTree):
         If xs is a list (i.e. xs is not None),
         then each element of xs needs to be inserted into the Heap.
         '''
-        self.root = None
+        super().__init__()
         self.num_nodes = 0
-        self.parent = None
-
         if xs is not None:
             self.insert_list(xs)
 
@@ -66,6 +64,8 @@ class Heap(BinaryTree):
         Implement this method.
         '''
         ret = True
+        if not node:
+            return True
         if node.left:
             ret &= node.value <= node.left.value
             ret &= Heap._is_heap_satisfied(node.left)
@@ -93,30 +93,32 @@ class Heap(BinaryTree):
         Create a @staticmethod helper function,
         following the same pattern used in the BST and AVLTree insert functions.
         '''
+        print("value adding: ", value)
+        print("heap: ", self)
         self.num_nodes += 1
         bin_str = bin(self.num_nodes)[3:]
-        if self.root is None:
+        print("bin_str: ", bin_str)
+        if self.root is None or len(bin_str) == 0:
             self.root = Node(value)
         else:
             Heap._insert(self.root, value, bin_str)
+        print("updated heap: ", self)
 
     @staticmethod
     def _insert(node, value, bin_str):
-        if node is None:
-            node = Node(value)
         if bin_str[0] == '0':
              if len(bin_str) == 1:
                  node.left = Node(value)
              else:
                  Heap._insert(node.left, value, bin_str[1:])
-             if node.left and node.value > node.left.value:
+             if node.value > node.left.value:
                 node.value, node.left.value = node.left.value, node.value
-        elif bin_str[0] == '1':
+        if bin_str[0] == '1':
              if len(bin_str) == 1:
                  node.right = Node(value)
              else:
                  Heap._insert(node.right, value, bin_str[1:])
-             if node.right and node.value > node.right.value:
+             if node.value > node.right.value:
                  node.value, node.right.value = node.right.value, node.value
 
     def insert_list(self, xs):
@@ -159,20 +161,26 @@ class Heap(BinaryTree):
         It's possible to do it with only a single helper (or no helper at all),
         but I personally found dividing up the code into two made the most sense.
         '''
+        print("number of nodes: ", self.num_nodes)
+        print("bin_str: ", bin(self.num_nodes)[3:])
         remove_path = list('{0:b}'.format(self.num_nodes))
-        self.num_nodes -= 1
-        remove_path.pop()
+        self.num_nodes -=1
+        remove_path.pop(0)
         if len(remove_path) < 1:
             self.root = None
         else:
-            self.root.value = Heap._remove_bottom_right(self.root, remove_path)
+            print("current heap being passed: ", self.root)
+            self.root.value = Heap._remove_bottom_right(self.root, remove_path))
+            print("before trickle: ", self.root)
             Heap._trickle(self.root)
+            print("after trickle: ", self)
 
     @staticmethod
-    def _remove_bottom_right(node, remove_path):
-        if len(remove_path) == 1:
-            if remove_path == '1':
-                value = node.right = None
+    def _remove_bottom_right(node, bin_str):
+        if len(bin_str) == 1:
+            if bin_str[0] == '1':
+                value = node.right.value
+                node.right = None            
                 return value
             else:
                 value = node.left.value
@@ -206,7 +214,7 @@ class Heap(BinaryTree):
             if min_child and min_child.value < node.value:
                 node.value, min_child.value = min_child.value, node.value
                 Heap._trickle(node.left)
-        if node.left and not Heap._is_satisfied(node.left):
+        if node.left and not Heap._is_heap_satisfied(node.left):
             Heap._trickle(node.left)
         if node.right and not Heap._is_heap_satisfied(node.right):
             Heap._trickle(node.right)
